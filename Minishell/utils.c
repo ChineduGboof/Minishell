@@ -6,7 +6,7 @@
 /*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:23:16 by cegbulef          #+#    #+#             */
-/*   Updated: 2023/02/12 20:50:12 by cegbulef         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:30:41 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,70 @@ int	ft_isspace(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\n'
 		|| c == '\v' || c == '\f' || c == '\r');
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*dest;
+	size_t	i;
+	size_t	srclen;
+
+	i = 0;
+	if (s)
+		srclen = ft_strlen(s);
+	else
+		srclen = 0;
+	if (len > srclen)
+		len = srclen + 1;
+	dest = (char *)malloc (sizeof(char) * (len + 1));
+	if (!dest)
+		return (0);
+	if (start < srclen)
+	{
+		while (i < len)
+		{
+			dest[i] = s[start];
+			start++;
+			i++;
+		}
+	}
+	dest[i] = 0;
+	return (dest);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] != '\0' && s1[i] == s2[i] && i < n - 1)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_isdigit(int c)
+{
+	return (c >= 48 && c <= 57);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	ptr = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (ptr == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }
 
 // static int	count_words(char *s, char c)

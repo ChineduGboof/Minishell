@@ -6,7 +6,7 @@
 #    By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 19:32:43 by cegbulef          #+#    #+#              #
-#    Updated: 2023/02/14 13:34:22 by cegbulef         ###   ########.fr        #
+#    Updated: 2023/02/15 12:49:47 by cegbulef         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RFLAGS = -L /usr/local/opt/readline/lib -l readline
 
 RM = rm -rf
 
-SRCS = 	main.c utils.c error.c tokens.c ft_split.c whitespace.c split2.c
+SRCS = 	main.c utils.c error.c tokens.c ft_split.c whitespace.c split2.c expand.c
 # exec.c ft_split_quotes.c
 
 $(NAME) :

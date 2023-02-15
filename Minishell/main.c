@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:23:08 by cegbulef          #+#    #+#             */
-/*   Updated: 2023/02/10 00:50:37 by gboof            ###   ########.fr       */
+/*   Updated: 2023/02/15 13:18:33 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-	handle when a user presses Control D
+	handle when a user passes spaces only
 */
 #include "minishell.h"
 
 int main (int argc, char *argv[], char *envp[])
 {
-	// t_list	*data;
+	t_list	*data;
 	char	*args;
-	// char	**tokens;
 
 	if (argc == 1)
 	{
-		// data = calloc(1, sizeof(t_list));
+		data = calloc(1, sizeof(t_list));
+		data->env = dup_env(envp);
 		while (1)
 		{
 			args = readline("Minishell $: ");
@@ -34,7 +34,7 @@ int main (int argc, char *argv[], char *envp[])
 				add_history(args);	//adds the args to the history
 				if (no_errors(args) == 0)
 				{
-					lexer(args);
+					lexer(args, data);
 				}
 				else
 				{
@@ -42,9 +42,11 @@ int main (int argc, char *argv[], char *envp[])
 					continue ;
 				}
 			}
+			free(args);
 				
 		}
-		// free(data);
+		free (data);
+		return (0);
 	}
 	else
 	{
