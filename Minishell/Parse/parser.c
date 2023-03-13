@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:21:24 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 16:50:59 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 16:51:52 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	handle_rd_args(t_data *data)
 	return (1);
 }
 
-int	process_cmd_args(t_data *data, t_quote *for_all)
+int	process_cmd_args(t_data *data)
 {
 	int	x;
 	int	y;
@@ -82,18 +82,18 @@ int	process_cmd_args(t_data *data, t_quote *for_all)
 		{
 			data->s_cmd[x] = check_expand(data->s_cmd[x], data);
 			data->s_cmd[x] = check_dquote
-				(data->s_cmd[x], for_all, data);
+				(data->s_cmd[x], data);
 			x++;
 		}
 	}
 	return (1);
 }
 
-int	process_cmds(t_data *data, t_quote *for_all)
+int	process_cmds(t_data *data)
 {
 	if (data->cmd_args)
 	{
-		if (!process_cmd_args(data, for_all))
+		if (!process_cmd_args(data))
 			return (0);
 	}
 	else
@@ -103,7 +103,6 @@ int	process_cmds(t_data *data, t_quote *for_all)
 	}
 	return (1);
 }
-
 
 char	*remove_dollar(char *cmd, int start)
 {

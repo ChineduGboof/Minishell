@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_t_data_members.c                                        :+:      :+:    :+:   */
+/*   free_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 18:18:31 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 13:17:27 by gboof            ###   ########.fr       */
+/*   Created: 2023/03/13 15:11:26 by cegbulef          #+#    #+#             */
+/*   Updated: 2023/03/13 15:11:57 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	fd_rd_closer(t_data *data, int cmd_num)
 
 void	fd_temp_closer(void)
 {
-	if (s_data->fd_temp != 0)
+	if (g_args->fd_temp != 0)
 	{
-		close (s_data->fd_temp);
-		s_data->fd_temp = 0;
+		close (g_args->fd_temp);
+		g_args->fd_temp = 0;
 	}
 }
 
@@ -35,7 +35,7 @@ void	close_fd(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < s_data->n_pipes - 1)
+	while (i < g_args->n_pipes - 1)
 	{
 		if (data[i].fd[0] != 0)
 		{
@@ -62,7 +62,7 @@ void	free_t_data_members(t_data *data)
 	int	cmd_num;
 
 	cmd_num = 0;
-	while (cmd_num < s_data->n_pipes)
+	while (cmd_num < g_args->n_pipes)
 	{
 		free_struct_op(data, cmd_num);
 		free_struct_fname(data, cmd_num);
@@ -73,11 +73,10 @@ void	free_t_data_members(t_data *data)
 
 void	free_readline(void)
 {
-	s_data->heredoc_count = 0;
-	if (s_data->args)
+	g_args->heredoc_count = 0;
+	if (g_args->args)
 	{
-		free(s_data->args);
-		s_data->args = NULL;
+		free(g_args->args);
+		g_args->args = NULL;
 	}
 }
-

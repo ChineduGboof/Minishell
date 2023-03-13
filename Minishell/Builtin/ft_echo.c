@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:16:54 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/11 23:51:11 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	dollar_detector(t_data *data, int i, int cmd_num)
 		if (data[cmd_num].s_cmd[i][j] == '$'
 			&& data[cmd_num].s_cmd[i][j + 1] == '?')
 		{
-			ft_putnbr_fd(s_data->return_state, 1);
-			s_data->return_state = 0;
+			ft_putnbr_fd(g_args->return_state, 1);
+			g_args->return_state = 0;
 			j++;
 		}
 		else if (data[cmd_num].s_cmd[i][j])
@@ -80,7 +80,7 @@ int	ft_echo(t_data *data, int cmd_num)
 		}
 		if (!newline)
 			ft_putstr_fd("\n", 1);
-		s_data->return_state = 0;
+		g_args->return_state = 0;
 		return (1);
 	}
 	return (0);

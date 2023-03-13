@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:20:40 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:07:19 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:13:17 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,3 @@ void	copy_cmd_to_array(t_data *data)
 	if (data->cmd[0])
 		data->s_cmd = my_ft_split(data->cmd, ' ');
 }
-

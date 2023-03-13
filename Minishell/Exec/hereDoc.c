@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hereDoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:19:45 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:21:47 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:10:24 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,10 @@ int	heredoc_exec(t_data *data, char *str, int cmd_num)
 
 	pipe(fd);
 	ft_here_doc(str, fd, data, cmd_num);
-	s_data->return_state = WEXITSTATUS(status);
+	g_args->return_state = WEXITSTATUS(status);
 	if (builtin_checker(data, cmd_num) == 0)
 		dup2(fd[0], 0);
 	if (!builtin_checker(data, cmd_num))
 		close_herdoc_fds(fd);
-	return (s_data->return_state);
+	return (g_args->return_state);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:19:16 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:39:28 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	absolute_path(t_data *data, int cmd_num)
 		if (!access(data[cmd_num].s_cmd[0], F_OK))
 		{
 			if (execve(data[cmd_num].s_cmd[0],
-					data[cmd_num].s_cmd, s_data->envp->env) < 0)
+					data[cmd_num].s_cmd, g_args->envp->env) < 0)
 			{
 				ft_putstr_fd("\033[1;31m [minishell]: \033[0m ", 2);
 				perror(data[cmd_num].s_cmd[0]);
@@ -40,7 +40,7 @@ static void	slash_command(t_data *data, int cmd_num)
 		(data[cmd_num].s_cmd[0], "./", 2) == 0)
 	{
 		if (execve(data[cmd_num].s_cmd[0],
-				data[cmd_num].s_cmd, s_data->envp->env) < 0)
+				data[cmd_num].s_cmd, g_args->envp->env) < 0)
 		{
 			ft_putstr_fd("\033[1;31m [minishell]: \033[0m ", 2);
 			perror(data[cmd_num].s_cmd[0]);
@@ -57,16 +57,16 @@ static void	ft_child_exec(t_data *data, int cmd_num)
 	char	*envir_value;
 
 	absolute_path(data, cmd_num);
-	envir_value = get_env_value(s_data->envp, "PATH");
+	envir_value = get_env_value(g_args->envp, "PATH");
 	slash_command(data, cmd_num);
 	if (data[cmd_num].s_cmd && data[cmd_num].s_cmd[0])
 	{
 		data[cmd_num].path = get_path(envir_value, &data[cmd_num], \
-					s_data->args);
+					g_args->args);
 		if (data[cmd_num].path)
 		{
 			if (execve(data[cmd_num].path, data[cmd_num].s_cmd, \
-					s_data->envp->env) < 0)
+					g_args->envp->env) < 0)
 			{
 				ft_putstr_fd("\033[1;31m [minishell]: \033[0m ", 2);
 				ft_putstr_fd(data->s_cmd[0], 2);
@@ -77,7 +77,7 @@ static void	ft_child_exec(t_data *data, int cmd_num)
 	free(envir_value);
 	close_fd(data);
 	free_t_data_members(data);
-	s_data->return_state = 127;
+	g_args->return_state = 127;
 	exit(127);
 }
 

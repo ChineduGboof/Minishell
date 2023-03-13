@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:17:42 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 16:30:29 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	export_error(char *err_cmd)
 	ft_putstr_fd("[minishell]: export: `", 2);
 	ft_putstr_fd(err_cmd, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
-	s_data->return_state = 1;
+	g_args->return_state = 1;
 	return (1);
 }
 

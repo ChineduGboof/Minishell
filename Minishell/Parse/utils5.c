@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils7.c                                           :+:      :+:    :+:   */
+/*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:22:21 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 16:10:31 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 16:52:32 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int	scan_rd(t_data *data)
 	return (1);
 }
 
-int	check_input_errors(int pipe_num, char *cmd_line, t_quote *for_all)
+int	check_input_errors(int pipe_num, char *cmd_line)
 {
-	if (for_all->dquote == 1)
+	if (g_args->dquote == 1)
 	{
 		print_error("error: unclosed quotes");
 		return (0);

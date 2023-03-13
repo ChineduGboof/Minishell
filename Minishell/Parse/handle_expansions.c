@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_ft.c                                           :+:      :+:    :+:   */
+/*   handle_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:21:00 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/11 22:44:41 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:13:01 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 static void	if_escape(char **f, int *i, t_data *data)
 {
@@ -52,7 +51,6 @@ char	*check_expand_helper_final(char *f, int *i, t_data *data)
 	return (f);
 }
 
-
 char	*no_expand_found(char **cmd, int start, int length)
 {
 	int		i;
@@ -79,7 +77,6 @@ char	*no_expand_found(char **cmd, int start, int length)
 	free(*cmd);
 	return (new_str);
 }
-
 
 static void	util_exp(char **cmd, int *i, char **new_str, int *j)
 {
@@ -119,4 +116,3 @@ char	*edit_expanded(char *expanded, char *cmd, int length, int start)
 	new_str[j] = 0;
 	return (new_str);
 }
-

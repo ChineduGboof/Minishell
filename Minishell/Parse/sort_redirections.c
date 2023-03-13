@@ -105,7 +105,7 @@ char	*replace_sub_str_to_expand(char *cmd, int start, int length, char **env)
 	new_str = NULL;
 	to_expand = ft_strndup(cmd, length, i);
 	if (cmd[i] == '?')
-		expanded = ft_itoa(s_data->return_state);
+		expanded = ft_itoa(g_args->return_state);
 	else
 		expanded = ft_getenv(to_expand, env);
 	if (expanded == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_rd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:21:32 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:03:49 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:57:53 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	no_rd_fname2(t_data *data, int i)
 	if (data->cmd_args[i] == '<' || data->cmd_args[i] == '>')
 	{
 		printf(SYNTAX_ERR_C, data->cmd_args[i]);
-		s_data->return_state = 258;
+		g_args->return_state = 258;
 		rl_on_new_line();
 		return (0);
 	}
@@ -67,7 +67,7 @@ int	no_rd_fname(t_data *data, int i)
 		|| data->cmd_args[i] == 0)
 	{
 		printf(SYNTAX_ERR_C, data->cmd_args[i]);
-		s_data->return_state = 258;
+		g_args->return_state = 258;
 		rl_on_new_line();
 		return (0);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:19:34 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 16:33:49 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:09:53 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void
 			"/", data->s_cmd[0]);
 }
 
-char
-	*find_exec_path(char ***splitted_path, int *i, t_data *data, char **joined_path)
+char	*find_exec_path(char ***splitted_path, \
+			int *i, t_data *data, char **joined_path)
 {
 	while (*splitted_path && (*splitted_path)[*i])
 	{
@@ -57,7 +57,7 @@ static void	error_message(t_data *data, int cmd_found)
 		ft_putstr_fd("\033[1;31m [minishell]: \033[0m ", 2);
 		ft_putstr_fd(data->s_cmd[0], 2);
 		ft_putstr_fd(": command not found\033[0m\n", 2);
-		s_data->return_state = 127;
+		g_args->return_state = 127;
 	}
 }
 
@@ -84,4 +84,3 @@ char	*get_path(char *path, t_data *data, char *args)
 	}
 	return (NULL);
 }
-

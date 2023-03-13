@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils6.c                                           :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:22:14 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 13:48:43 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 16:49:07 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	init_data(t_data *data, t_quote *for_all, char *cmd_holder, t_envp *envp)
+int	init_data(t_data *data, char *cmd_holder, t_envp *envp)
 {
 	data->path = NULL;
 	data->env = envp->env;
 	data->flag = 0;
-	data->all = *for_all;
 	data->cmd_args = cmd_holder;
 	if (no_spaces(cmd_holder) == 0)
 	{
@@ -83,7 +82,7 @@ char	*allocate_parsed_cmd(char *cmd)
 	return (new);
 }
 
-int	uneven_quotes(char *cmd, t_quote *data)
+int	uneven_quotes(char *cmd)
 {
 	int		i;
 	char	c;
@@ -99,7 +98,7 @@ int	uneven_quotes(char *cmd, t_quote *data)
 			{
 				if (cmd[i] == 0)
 				{
-					data->dquote = 1;
+					g_args->dquote = true;
 					return (0);
 				}
 				i++;
@@ -110,7 +109,7 @@ int	uneven_quotes(char *cmd, t_quote *data)
 	return (0);
 }
 
-char	*check_dquote(char *cmd, t_quote *data, t_data *info)
+char	*check_dquote(char *cmd, t_data *info)
 {
 	int		i;
 	char	c;
@@ -126,11 +125,11 @@ char	*check_dquote(char *cmd, t_quote *data, t_data *info)
 			flag = 1;
 			c = cmd[i];
 			i = check_flag(info, i, c);
-			i = increment_till_next_quote(data, cmd, i, c);
+			i = increment_till_next_quote(cmd, i, c);
 		}
 		i++;
 	}
-	if (data->dquote == 0 && flag == 1)
+	if (g_args->dquote == 0 && flag == 1)
 		new = allocate_parsed_cmd(cmd);
 	else
 		return (cmd);

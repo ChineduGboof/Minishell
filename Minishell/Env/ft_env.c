@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:17:49 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/11 23:50:47 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:18:52 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	init_env(char **environ)
+{
+	g_args->heredoc_count = 0;
+	g_args->envp = ft_calloc(1, sizeof(t_envp));
+	g_args->envp->env = dup_2darray(environ);
+	if (getenv("OLDPWD"))
+		del_from_env(g_args->envp, "OLDPWD");
+	add_to_env(g_args->envp, "OLDPWD");
+	if (env_var_exists(g_args->envp, "SHLVL"))
+	{
+		g_args->envp->shlvl = ft_atoi(getenv("SHLVL"));
+		add_to_shlvl();
+		shlvl_edge_cases(g_args->envp);
+	}
+	else
+		add_to_env(g_args->envp, "SHLVL=1");
+}
 
 int	ft_env(t_data *data, t_envp *envp, int cmd_num)
 {

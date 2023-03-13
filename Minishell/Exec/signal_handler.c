@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:20:16 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 18:00:01 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:11:15 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static void	signal_controller(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
-		if (waitpid(-1, &s_data->return_state, WNOHANG) == -1)
+		if (waitpid(-1, &g_args->return_state, WNOHANG) == -1)
 		{
 			rl_on_new_line();
 			rl_redisplay();
 			write(STDERR_FILENO, "  \n", 4);
-			// rl_replace_line("", 0);
+			rl_replace_line("", 0);
 			rl_on_new_line();
 			rl_redisplay();
-			s_data->return_state = 1;
+			g_args->return_state = 1;
 		}
 	}
 	else if (sig_num == SIGQUIT)
@@ -32,7 +32,7 @@ static void	signal_controller(int sig_num)
 		rl_on_new_line();
 		rl_redisplay();
 		ft_putstr_fd("  \b\b", 2);
-		s_data->return_state = 131;
+		g_args->return_state = 131;
 	}
 	else if (sig_num == SIGSEGV)
 	{

@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gboof <gboof@student.42.fr>                +#+  +:+       +#+         #
+#    By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 18:16:15 by gboof             #+#    #+#              #
-#    Updated: 2023/03/12 17:40:40 by gboof            ###   ########.fr        #
+#    Updated: 2023/03/13 16:52:55 by cegbulef         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 
-ifndef CEGBULEF
-.SILENT:
-endif
+# ifndef CEGBULEF
+# .SILENT:
+# endif
 
 
 NAME = minishell

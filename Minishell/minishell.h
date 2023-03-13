@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:22:39 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:39:28 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 17:12:13 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
-# include <dirent.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
 
-# define SYNTAX_ERR_C	"\e[0;31m Minishell:🔗 syntax error near unexpected token `%c'\n\e[0m"
-# define SYNTAX_ERR_S	"\e[0;31m Minishell:🔗 No such file or directory ⚙️ `%s'\n\e[0m"
+# define SYNTAX_ERR_C "\e[0;31m Minishell:\
+🔗 syntax error near unexpected token `%c'\n\e[0m"
+# define SYNTAX_ERR_S "\e[0;31m Minishell:\
+🔗 No such file or directory ⚙️ `%s'\n\e[0m"
 
 # define R "\033[1;31m"
 # define G "\033[1;32m"
@@ -42,13 +44,6 @@ typedef struct s_envp
 	char			**env;
 	size_t			shlvl;
 }			t_envp;
-
-typedef struct s_quote
-{
-	int		dquote;
-	char	*parsed_cmd;
-	int		pipes_nb;
-}		t_quote;
 
 typedef struct s_data
 {
@@ -65,7 +60,6 @@ typedef struct s_data
 	char		*cmd_args;
 	char		**rd;
 	int			flag;
-	t_quote	all;
 }			t_data;
 
 typedef struct s_shell
@@ -76,11 +70,12 @@ typedef struct s_shell
 	char		*args;
 	int			fd_temp;
 	int			heredoc_count;
+	bool		dquote;
 }		t_shell;
 
-t_shell	*s_data;
+t_shell	*g_args;
 
-/*---------------------------------- parser.c --------------------------------*/
+/*----------------------------------$ parser.c $--------------------------------*/
 int		copy_only_cmd(t_data *data);
 void	copy_cmd_to_array(t_data *data);
 void	copy_rd_n_fname(t_data *data, int x);
@@ -88,7 +83,7 @@ void	alloc_rd_n_fname(t_data *data, int x);
 int		sort_rd_n_fname(t_data *data);
 int		copy_all_rd_args(t_data *data);
 int		count_rd(t_data *data);
-char	*check_dquote(char *cmd, t_quote *data, t_data *info);
+char	*check_dquote(char *cmd, t_data *info);
 int		copy_rd_arg(t_data *data, int i, int x);
 int		get_rd_fname_size(t_data *data, int i);
 int		ft_isspace(char c);
@@ -102,7 +97,6 @@ char	*check_expand(char *cmd, t_data *data);
 char	*replace_sub_str_to_expand(char *cmd, int start, int len, char **env);
 int		ft_strncomp(const char *s1, const char *s2, int n);
 int		ft_exec(t_data *data);
-int		init_data(t_data *data, t_quote *for_all, char *cmd, t_envp *envp);
 void	print_error(char *s);
 int		no_spaces(char *cmd);
 t_data	*validate(t_data *data);
@@ -130,29 +124,29 @@ char	*check_expand_helper_0(char *final_expanded, int *i, t_data *data);
 int		check_expand_helper_01(char *final_expanded, int *i, t_data *data);
 int		check_expand_helper_1(char *final_expanded, int *i);
 int		check_flag(t_data *info, int i, char c);
-int		increment_till_next_quote(t_quote *data, char *cmd, int i, char c);
+int		increment_till_next_quote(char *cmd, int i, char c);
 int		find_rd(t_data *data, int i);
 void	print_error(char *s);
-int		init_data(t_data *data, t_quote *for_all, char
-			*cmd_holder, t_envp *envp);
+int		init_data(t_data *data, char *cmd_holder, t_envp *envp);
 char	*copy_parsed_cmd(char *cmd, char *new);
 char	*allocate_parsed_cmd(char *cmd);
-int		uneven_quotes(char *cmd, t_quote *data);
+char	*check_expand_helper_final(char *final_expanded, int *i, t_data *data);
+char	*no_expand_found(char **cmd, int start, int length);
+char	*edit_expanded(char *expanded, char *cmd, int length, int start);
+int		uneven_quotes(char *cmd);
 int		rd_fname_size(t_data *data, int i, int j);
 int		esc_rd(t_data *data, int i);
-char	*check_expand_helper_final(char *final_expanded, int *i, t_data *data);
-int		check_input_errors(int pipe_num, char *cmd_line, t_quote *for_all);
+int		check_input_errors(int pipe_num, char *cmd_line);
 int		scan_rd(t_data *data);
 int		skip_quoted_string(const char *s, int i);
 int		count_pipes(char *cmd_line, int j);
-int		process_cmds(t_data *data, t_quote *for_all);
-char	*no_expand_found(char **cmd, int start, int length);
-char	*edit_expanded(char *expanded, char *cmd, int length, int start);
+int		process_cmds(t_data *data);
+void	rl_replace_line(const char *text, int clear_undo);
 
-/*---------------------------------  Signals ---------------------------------*/
+/*---------------------------------$  Signals $---------------------------------*/
 void	trap_signals(void);
 
-/*--------------------------  Built_in_commands ------------------------------*/
+/*--------------------------$  Built_in_commands $------------------------------*/
 int		ft_echo(t_data *data, int cmd_num);
 int		ft_cd(t_data *data, t_envp *envp, int cmd_num);
 int		ft_pwd(t_data *data, int cmd_num);
@@ -161,22 +155,23 @@ int		ft_unset(t_data *data, t_envp *envp, int cmd_num);
 int		ft_env(t_data *data, t_envp *envp, int cmd_num);
 int		ft_export(t_data *data, t_envp *envp, int cmd_num);
 
-/*--------------------------  Built_in commands handlers ---------------------*/
+/*--------------------------$  Built_in commands handlers $---------------------*/
 int		builtin(t_data *data, int cmd_num);
 int		builtin_checker(t_data *data, int cmd_num);
 int		piped_built_in(t_data *data, int cmd_num);
 
-/*----------------------------# Environment_utils #---------------------------*/
+/*----------------------------$ Environment_utils $---------------------------*/
 int		sizeof_2d_array(char **array);
+int		env_var_exists(t_envp *envp, char *to_compare);
 void	add_to_env(t_envp *envp, char *to_add);
 void	del_from_env(t_envp *envp, char *to_delete);
+void	init_env(char **environ);
 char	**dup_2darray(char **array);
-size_t	get_env_name_len(char **env, int index);
 void	shlvl_edge_cases(t_envp *envp);
 void	add_to_shlvl(void);
-int		env_var_exists(t_envp *envp, char *to_compare);
+size_t	get_env_name_len(char **env, int index);
 
-/*-----------------------------# Cleaning_utils #-----------------------------*/
+/*-----------------------------$ Cleaning_utils $-----------------------------*/
 void	free_struct_s_cmd(t_data *data, int cmd_num);
 void	free_struct_fname(t_data *data, int cmd_num);
 void	free_struct_op(t_data *data, int cmd_num);
@@ -184,21 +179,21 @@ void	close_fd(t_data *data);
 void	free_t_data_members(t_data *data);
 void	free_readline(void);
 
-/*-----------------------------# Export_utils #-------------------------------*/
+/*-----------------------------$ Export_utils $-------------------------------*/
 int		export_error(char *err_cmd);
 int		already_exist(char *to_add, t_envp *envp);
 int		valid_toadd(t_data *data, int index);
 void	add_to_env_value(t_envp *envp, char *new_cmd);
-char	*get_env_value(t_envp *envp, char *element_name);
 void	export_print(t_envp *envp);
-char	*delchar(char *cmd);
 void	export_print_2(t_envp *envp, int *i, int *j);
 void	sorting_environment(t_envp *envp);
+char	*get_env_value(t_envp *envp, char *element_name);
+char	*delchar(char *cmd);
 
-/*--------------------------# redirection_utils #-----------------------------*/
-int		check_redirection(t_data *data, int cmd_num);
+/*--------------------------$ redirection_utils $-----------------------------*/
 void	check_rp_redirection(t_data *data, int cmd_num, int i);
 void	check_ap_redirection(t_data *data, int cmd_num, int i);
+int		check_redirection(t_data *data, int cmd_num);
 int		ft_open_rp(char *str);
 int		ft_open_ap(char *str);
 int		ft_open(char *str);
@@ -206,13 +201,13 @@ int		ft_here_doc_2(char *str);
 int		my_strncmp(const char *s1, const char *s2, int n);
 int		heredoc_exec(t_data *data, char *str, int cmd_num);
 
-/*--------------------------------- execution --------------------------------*/
+/*--------------------------------$ execution $-------------------------------*/
 int		execute(t_data *data);
+char	*get_path(char *path, t_data *data, char *args);
 void	exec_pipeline_cmd(t_data *data, int cmd_num);
 void	free_2d_array(char **array);
 void	free_env(t_envp *envp);
 void	fork_child(t_data *data, int cmd_num);
-char	*get_path(char *path, t_data *data, char *args);
 void	fd_temp_closer(void);
 void	fd_rd_closer(t_data *data, int cmd_num);
 void	wait_children(void);

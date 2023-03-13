@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:18:09 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 14:17:10 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	add_to_shlvl(void)
 	char	*shell_level;
 	char	*shl;
 
-	s_data->envp->shlvl += 1;
-	shl = ft_itoa(s_data->envp->shlvl);
-	del_from_env(s_data->envp, "SHLVL=");
+	g_args->envp->shlvl += 1;
+	shl = ft_itoa(g_args->envp->shlvl);
+	del_from_env(g_args->envp, "SHLVL=");
 	shell_level = ft_strjoin("SHLVL=", shl);
 	free(shl);
 	shl = NULL;
-	add_to_env(s_data->envp, shell_level);
+	add_to_env(g_args->envp, shell_level);
 	free(shell_level);
 	shell_level = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:17:15 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 14:14:41 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	add_to_env(t_envp *envp, char *to_add)
 	i = 0;
 	raws = sizeof_2d_array(envp->env);
 	tmp_env = dup_2darray(envp->env);
-	free_env(s_data->envp);
+	free_env(g_args->envp);
 	envp->env = ft_calloc(sizeof(char *), (raws + 2));
 	while (i < raws)
 	{

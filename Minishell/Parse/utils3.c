@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils5.c                                           :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:22:08 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 16:05:41 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 16:50:24 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	check_flag(t_data *info, int i, char c)
 	return (i);
 }
 
-int	increment_till_next_quote(t_quote *data, char *cmd, int i, char c)
+int	increment_till_next_quote(char *cmd, int i, char c)
 {
 	while (cmd[i] != c)
 	{
 		if (cmd[i] == 0)
 		{
-			data->dquote = 1;
+			g_args->dquote = 1;
 			return (0);
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:16:49 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 14:16:52 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	edit_pwd(char *old_pwd, char *new_pwd)
 {
-	del_from_env(s_data->envp, "PWD=");
-	del_from_env(s_data->envp, "OLDPWD=");
-	add_to_env(s_data->envp, old_pwd);
-	add_to_env(s_data->envp, new_pwd);
+	del_from_env(g_args->envp, "PWD=");
+	del_from_env(g_args->envp, "OLDPWD=");
+	add_to_env(g_args->envp, old_pwd);
+	add_to_env(g_args->envp, new_pwd);
 }
 
 static void	update_path(t_envp *envp)

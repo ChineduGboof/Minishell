@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:17:56 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/11 23:50:51 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:07:44 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,3 @@ int	ft_export(t_data *data, t_envp *envp, int cmd_num)
 	}
 	return (0);
 }
-

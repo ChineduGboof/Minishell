@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer.c                                         :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:19:07 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:28:16 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	wait_children(void)
 {
-	while (waitpid(-1, &s_data->return_state, 0) > -1)
-		s_data->return_state = WEXITSTATUS(s_data->return_state);
+	while (waitpid(-1, &g_args->return_state, 0) > -1)
+		g_args->return_state = WEXITSTATUS(g_args->return_state);
 }
 
 static int	setup_pipe(t_data *data, int cmd_num)
 {
-	if (cmd_num + 1 != s_data->n_pipes)
+	if (cmd_num + 1 != g_args->n_pipes)
 	{
 		if (pipe(data[cmd_num].fd) == -1)
 		{
@@ -37,10 +37,10 @@ static void	start_executing(t_data *data)
 	int	cmd_num;
 
 	cmd_num = 0;
-	while (cmd_num < s_data->n_pipes)
+	while (cmd_num < g_args->n_pipes)
 	{
 		setup_pipe(data, cmd_num);
-		if (s_data->n_pipes > 1)
+		if (g_args->n_pipes > 1)
 		{
 			if (builtin_checker(data, cmd_num))
 			{
@@ -63,9 +63,9 @@ static void	start_executing(t_data *data)
 
 int	execute(t_data *data)
 {
-	s_data->fd_temp = dup(STDOUT_FILENO);
+	g_args->fd_temp = dup(STDOUT_FILENO);
 	start_executing(data);
-	dup2(s_data->fd_temp, STDOUT_FILENO);
+	dup2(g_args->fd_temp, STDOUT_FILENO);
 	close_fd(data);
 	wait_children();
 	return (1);

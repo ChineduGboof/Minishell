@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pipeline_cmd.c                                          :+:      :+:    :+:   */
+/*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 18:19:24 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:38:05 by gboof            ###   ########.fr       */
+/*   Created: 2023/03/13 15:08:37 by cegbulef          #+#    #+#             */
+/*   Updated: 2023/03/13 15:08:56 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ static void	redirect_io(t_data *data, int cmd_num)
 
 void	exec_pipeline_cmd(t_data *data, int cmd_num)
 {
-	if (s_data->n_pipes != 1)
+	if (g_args->n_pipes != 1)
 	{
 		if (cmd_num == 0)
 			redirect_output(data, cmd_num);
-		else if (cmd_num + 1 == s_data->n_pipes)
+		else if (cmd_num + 1 == g_args->n_pipes)
 			redirect_input(data, cmd_num);
 		else
 			redirect_io(data, cmd_num);

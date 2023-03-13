@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:18:20 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/12 17:39:28 by gboof            ###   ########.fr       */
+/*   Updated: 2023/03/13 15:06:44 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ int	builtin_checker(t_data *data, int cmd_num)
 
 static int	forked_builtin(t_data *data, int cmd_num)
 {
-	if (ft_cd(data, s_data->envp, cmd_num) \
+	if (ft_cd(data, g_args->envp, cmd_num) \
 	|| ft_echo(data, cmd_num) \
 	|| ft_pwd(data, cmd_num) \
-	|| ft_env(data, s_data->envp, cmd_num) \
-	|| ft_unset(data, s_data->envp, cmd_num) \
-	|| ft_export(data, s_data->envp, cmd_num))
+	|| ft_env(data, g_args->envp, cmd_num) \
+	|| ft_unset(data, g_args->envp, cmd_num) \
+	|| ft_export(data, g_args->envp, cmd_num))
 	{
 		close_fd(data);
 		exit (EXIT_SUCCESS);
 	}
 	else if (ft_exit(data, cmd_num))
-		exit (s_data->return_state);
+		exit (g_args->return_state);
 	close_fd(data);
 	exit (EXIT_FAILURE);
 }
@@ -70,16 +70,15 @@ int	builtin(t_data *data, int cmd_num)
 {
 	int	i;
 
-	i = s_data->return_state;
-	if (ft_cd(data, s_data->envp, cmd_num) \
+	i = g_args->return_state;
+	if (ft_cd(data, g_args->envp, cmd_num) \
 	|| ft_echo(data, cmd_num) \
 	|| ft_pwd(data, cmd_num) \
-	|| ft_env(data, s_data->envp, cmd_num) \
-	|| ft_unset(data, s_data->envp, cmd_num) \
-	|| ft_export(data, s_data->envp, cmd_num))
+	|| ft_env(data, g_args->envp, cmd_num) \
+	|| ft_unset(data, g_args->envp, cmd_num) \
+	|| ft_export(data, g_args->envp, cmd_num))
 		return (1);
 	else if (ft_exit(data, cmd_num))
 		exit (i);
 	return (0);
 }
-
