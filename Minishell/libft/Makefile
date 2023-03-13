@@ -15,30 +15,25 @@ SRCS := \
 	ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c \
 	ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
 	ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
-	ft_putendl_fd.c ft_putnbr_fd.c ft_strcpy.c ft_multi_strjoin.c ft_strcmp.c ft_strcpy.c
-BONUS_SRCS :=  ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
-	 ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c  \
+	ft_putendl_fd.c ft_putnbr_fd.c ft_strcpy.c ft_multi_strjoin.c ft_strcmp.c ft_strcpy.c \
+	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
+	ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c  \
 	ft_lstiter.c ft_lstmap.c
 
 OBJS := $(SRCS:.c=.o)
 
-BONUS_OBJS := $(BONUS_SRCS:.c=.o)
+all : $(NAME)
 
 $(NAME) : $(OBJS)
 		ar -rcs $(NAME) $(OBJS)
 
-bonus : $(BONUS_OBJS)
-		ar -rcs $(NAME) $(BONUS_OBJS)
-
 .o: .c
-		cc -c $(CFLAGS) $@ $<
-
-fclean : clean
-		rm -f $(NAME)
+		cc $(CFLAGS) -c $< -o $@
 
 clean :
 		rm -f $(OBJS) $(BONUS_OBJS)
 
-re : fclean all
+fclean : clean
+		rm -f $(NAME)
 
-all : $(NAME)
+re : fclean all

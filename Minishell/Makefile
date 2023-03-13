@@ -6,15 +6,15 @@
 #    By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 18:16:15 by gboof             #+#    #+#              #
-#    Updated: 2023/03/13 16:52:55 by cegbulef         ###   ########.fr        #
+#    Updated: 2023/03/13 20:05:45 by cegbulef         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 
-# ifndef CEGBULEF
-# .SILENT:
-# endif
+ifndef CEGBULEF
+.SILENT:
+endif
 
 
 NAME = minishell
@@ -80,14 +80,14 @@ CC = gcc
 
 all: $(NAME) $(HEADER) $(FILES)
 
-$(NAME): $(OBJ)
-	@make -C ./libft
+%.o : %.c
+	@cc -Wall -Wextra -Werror -c $< -o $@
+	@echo ".\c"
 
-
+$(NAME): $(LIBFT) $(OBJ)
 	$(CC) -g $(FLAGS) $(FILES) $(LIBFT) -lreadline -o minishell
-
 	
-	@echo "													 Made by : \033[1;91mCegbulef\033[m"
+	@echo "													 Made by : \033[1;91mCegbulef & Realdahh\033[m"
 	@echo "      ___                       ___                       ___           ___           ___                                  "
 	@echo "     /__/\        ___          /__/\        ___          /  /\         /__/\         /  /\                                 "
 	@echo "    |  |::\      /  /\         \  \:\      /  /\        /  /:/_        \  \:\       /  /:/_                                "
@@ -101,6 +101,11 @@ $(NAME): $(OBJ)
 	@echo "     \__\/                     \__\/                     \__\/         \__\/         \__\/                                 "
 	@echo "						Compilation of $(NAME):  \033[1;32mOK\033[m"
 
+$(LIBFT) :
+	@echo "Creating LIBFT"
+	@make -sC ./libft
+	@echo "LIBFT Ready✅"
+	@echo "Creating \033[1;33mMinishell🔥\033[0m"
 
 leaks_fd:
 	make re && make clean && valgrind --track-fds=yes  ./minishell
@@ -117,7 +122,7 @@ norm:
 
 clean:
 	@make -C ./libft clean
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ) *.dSYM
 
 fclean: clean
 	@rm -rf minishell

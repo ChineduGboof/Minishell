@@ -6,7 +6,7 @@
 /*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:22:21 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/13 16:52:32 by cegbulef         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:43:45 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,19 @@ int	check_input_errors(int pipe_num, char *cmd_line)
 	if (count_pipes(cmd_line, pipe_num) == 100)
 		return (0);
 	return (1);
+}
+
+void	check_for_no_args(t_data **data)
+{
+	if (!g_args->args)
+	{
+		ft_putstr_fd(G"\nBye Minishell \n"END, 1);
+		free_readline();
+		free(*data);
+		*data = NULL;
+		free_env(g_args->envp);
+		free(g_args->envp);
+		free(g_args);
+		exit(0);
+	}
 }
