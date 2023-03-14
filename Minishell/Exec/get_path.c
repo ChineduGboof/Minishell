@@ -6,14 +6,14 @@
 /*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:19:34 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/13 15:09:53 by cegbulef         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:31:23 by cegbulef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void
-	get_path_utils(char ***splitted_path, int *i, \
+	get_path_utils(char ***split_path, int *i, \
 	t_data *data, char **joined_path)
 {
 	if (*joined_path)
@@ -21,18 +21,18 @@ static void
 		free(*joined_path);
 		*joined_path = NULL;
 	}
-	if ((*splitted_path)[*i])
-		*joined_path = ft_multi_strjoin(3, (*splitted_path)[*i], \
+	if ((*split_path)[*i])
+		*joined_path = ft_multi_strjoin(3, (*split_path)[*i], \
 			"/", data->s_cmd[0]);
 }
 
-char	*find_exec_path(char ***splitted_path, \
+char	*find_exec_path(char ***split_path, \
 			int *i, t_data *data, char **joined_path)
 {
-	while (*splitted_path && (*splitted_path)[*i])
+	while (*split_path && (*split_path)[*i])
 	{
 		if (data->s_cmd && data->s_cmd[0])
-			get_path_utils(splitted_path, i, data, joined_path);
+			get_path_utils(split_path, i, data, joined_path);
 		else
 			return (NULL);
 		if (access(*joined_path, F_OK) == 0)
@@ -63,23 +63,23 @@ static void	error_message(t_data *data, int cmd_found)
 
 char	*get_path(char *path, t_data *data, char *args)
 {
-	char	**splitted_path;
+	char	**split_path;
 	char	*joined_path;
 	int		cmd_found;
 	int		i;
 
 	joined_path = NULL;
-	splitted_path = NULL;
+	split_path = NULL;
 	cmd_found = 0;
 	if (path && data->s_cmd && data->s_cmd[0] && ft_strlen(args) != 0)
 	{
-		splitted_path = ft_split(path, ':');
+		split_path = ft_split(path, ':');
 		i = 0;
-		if (!ft_strncomp(find_exec_path(&splitted_path, &i, data,
+		if (!ft_strncomp(find_exec_path(&split_path, &i, data,
 					&joined_path), "valid path not found", 21))
-			return (find_exec_path(&splitted_path, &i, data, &joined_path));
-		if (splitted_path)
-			free_2d_array(splitted_path);
+			return (find_exec_path(&split_path, &i, data, &joined_path));
+		if (split_path)
+			free_2d_array(split_path);
 		error_message(data, cmd_found);
 	}
 	return (NULL);
