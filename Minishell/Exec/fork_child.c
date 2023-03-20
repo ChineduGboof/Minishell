@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cegbulef <cegbulef@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gboof <gboof@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 18:19:16 by gboof             #+#    #+#             */
-/*   Updated: 2023/03/13 14:46:34 by cegbulef         ###   ########.fr       */
+/*   Updated: 2023/03/18 21:43:30 by gboof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,21 @@ static void	ft_child_exec(t_data *data, int cmd_num)
 	exit(127);
 }
 
+static int	is_heredoc(t_data *data)
+{
+	if (!data->op[0])
+		return (0);
+	if (ft_strcmp(data->op[0], "<<") == 0)
+		return (1);
+	return (0);
+}
+
 void	fork_child(t_data *data, int cmd_num)
 {
 	pid_t	child_pid;
 
-	if (data[cmd_num].s_cmd && data[cmd_num].s_cmd[0] && \
-			data[cmd_num].s_cmd[0][0])
+	if ((data[cmd_num].s_cmd && data[cmd_num].s_cmd[0] && \
+			data[cmd_num].s_cmd[0][0]) || is_heredoc(data))
 	{
 		child_pid = fork();
 		if (child_pid < 0)
