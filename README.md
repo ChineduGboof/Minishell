@@ -8,7 +8,7 @@ Minishell is a 42 school team project to create a basic shell program in C. It i
 
 ## Status
 
-Ongoing
+Finished
 
 A prompt will appear. You may enter your commands to be executed.
 
